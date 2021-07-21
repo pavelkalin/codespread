@@ -2,14 +2,14 @@
   "name": "codespread_github",
   "private": true,
   "scripts": {
-    "start:urrrr": "node src/crawlTask.js",
-    "start:http": "node src/restApiTask.js"
+    "start:run": "node app.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.10",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "node-cron": "^3.0.0",
     "object-inspect": "^1.8.0",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.4",
