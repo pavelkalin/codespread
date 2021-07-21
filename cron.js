@@ -6,11 +6,11 @@ const update_repos = async ()=>{
 	users[0].forEach(user=>{
 		get_user_repos(user.username).then(repos=>{
 			if(!repos) return;
-			const repos_json = JSON.stringify(repos).replace(/[\']/g, "''");
+			const repos_json = JSON.stringify(repos).replace(/[']/g, "''");
 			DB.query(`
 INSERT INTO user_repos (user_id, repos) VALUES (${user.id},'${repos_json}')
 ON CONFLICT (user_id) DO UPDATE SET repos='${repos_json}', update='NOW()'`).then().catch(e=>console.error(e));
-		});
+		}).catch(e=>console.error(e));
 	});
 };
 

@@ -5,11 +5,10 @@ As we've discussed there are no queues, no rate limit checkups<br><br>
 There is a cron block and API block.<br>
 Thoughts for optimization: <br>
 Because of rate limit and our thought that data will be huge we need to reduce number of API calls.<br>
-Here is not the full list of ideas that should be further groomed:<br>
-1. We can request sorted response and for heavy users (with more than 100 repos) don't make additional requests
+We can request sorted response and for heavy users (with more than 100 repos) don't make additional requests
 with page=2,3,etc... if the response didn't change. In order to do so we need to hash response and store its hash in DB and compare hashes<br>
-https://api.github.com/users/user_name/repos?page=1&per_page=100&sort=updated
-2. 
+https://api.github.com/users/user_name/repos?page=1&per_page=100&sort=updated <br>
+
 
 ## To start API run
 ```bash

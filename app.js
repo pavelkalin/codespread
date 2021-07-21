@@ -5,11 +5,11 @@ process.on('unhandledRejection', (reason, promise)=>{
 });
 
 const express = require('express');
-const request = require('request');
 const dotenv  = require('dotenv');
 const cron    = require('node-cron');
 global.axios = require('axios');
 dotenv.config();
+
 if (process.env.GITHUB_TOKEN) axios.defaults.headers.common['Authorization'] = 'token ' + process.env.GITHUB_TOKEN;
 
 const {Sequelize} = require('sequelize');

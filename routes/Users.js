@@ -30,7 +30,7 @@ const create_user = async (req, res)=>{
 INSERT INTO users (username, user_data) VALUES ('${user_name}','${JSON.stringify(info)}') 
 ON CONFLICT (username) DO UPDATE SET user_data='${JSON.stringify(info)}', update='NOW()' RETURNING *`);
 		get_user_repos(user_name).then(repos=>{
-			const repos_json = JSON.stringify(repos).replace(/[\']/g, "''"); //some repos can have single quote in names, for json it should be replaced with two single quotes
+			const repos_json = JSON.stringify(repos).replace(/[']/g, "''"); //some repos can have single quote in names, for json it should be replaced with two single quotes
 			DB.query(`
 	INSERT INTO user_repos (user_id, repos) VALUES (${user[0][0].id},'${repos_json}') 
 	ON CONFLICT (user_id) DO UPDATE SET repos='${repos_json}', update='NOW()'`).then().catch(error=>{console.error('Error', error);});
@@ -51,7 +51,7 @@ const update_user_repos = async (req, res)=>{
 	const repos = await get_user_repos(user_name);
 	if(!repos) return await res.status(404).json({error:`Error during github fetching`});
 	try{
-		const repos_json = JSON.stringify(repos).replace(/[\']/g, "''"); //some repos can have single quote in names, for json it should be replaced with two single quotes
+		const repos_json = JSON.stringify(repos).replace(/[']/g, "''"); //some repos can have single quote in names, for json it should be replaced with two single quotes
 		await DB.query(`
 INSERT INTO user_repos (user_id, repos) VALUES (${user_id},'${repos_json}') 
 ON CONFLICT (user_id) DO UPDATE SET repos='${repos_json}', update='NOW()'`);
